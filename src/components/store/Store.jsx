@@ -8,6 +8,9 @@ const Wrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
 `
+const Loading = styled.div`
+  margin: 20px auto;
+`
 
 const Store = () => {
 
@@ -16,17 +19,21 @@ const Store = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    allPokemon("https://pokeapi.co/api/v2/pokemon/")
+    allPokemon()
   }, [])
 
-  console.log("POKEMON", pokemon)
+  console.log("LIST: ", pokemon)
 
   return (
     <Wrapper>
       {
+        pokemon.all.length > 0
+        ?
         pokemon?.all?.map((element, id) => {
           return <Card detail={element} key={id} />
         })
+        :
+        <Loading>Loading...</Loading>
       }
     </Wrapper>
   )

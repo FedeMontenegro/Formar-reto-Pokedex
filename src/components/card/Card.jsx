@@ -91,7 +91,7 @@ const Card = ({ detail }) => {
 
   const { front } = useCard(detail)
 
-  const [$background, setBackground] = useState(getSecondaryElements(detail.data.types[0].type.name))
+  const [$background, setBackground] = useState(getSecondaryElements(detail?.data?.types[0].type.name))
 
   return (
     <Wrapper background={$background}>
@@ -100,19 +100,19 @@ const Card = ({ detail }) => {
         <NameContainer>
 
           <Weight>
-            Weight: {detail.data.weight}
+            Weight: {detail?.data?.weight}
           </Weight>
 
           <Name>
-            {detail.data.name}
+            {detail?.data?.name}
           </Name>
         </NameContainer>
 
         <AbilitiesTitle>Abilities:</AbilitiesTitle>
         <Abilities>
           {
-            detail.data.abilities.map((element, id) => (
-              <Ability>
+            detail?.data?.abilities?.map((element, id) => (
+              <Ability key={id}>
                 <Small>
                   {element.ability.name}
                 </Small>
@@ -123,7 +123,7 @@ const Card = ({ detail }) => {
 
       </Info>
 
-      <Img src={front} alt="avatar" /* background={getElements(detail.data.types[0].type.name)} */ />
+      <Img src={front || detail?.data?.sprites?.front_default} alt="avatar" />
     </Wrapper>
   )
 }
