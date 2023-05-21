@@ -12,22 +12,22 @@ const useCard = (detail) => {
             widthResize > 500
                 ?
                 detail
-                    .data
-                    .sprites
-                    .other
-                    .dream_world
-                    .front_default
+                    ?.data
+                    ?.sprites
+                    ?.other
+                    ?.dream_world
+                    ?.front_default
                 :
                 detail
-                    .data
-                    .sprites
-                    .front_default
+                    ?.data
+                    ?.sprites
+                    ?.front_default
         )
     }
 
     useEffect(() => {
         toggle_front()
-    }, [widthResize])
+    }, [widthResize, detail])
 
     return {
         front,
