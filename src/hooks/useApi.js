@@ -8,23 +8,27 @@ const useApi = () => {
   const dispatch = useDispatch()
   const pokemon = useSelector(state => state.pokemon)
 
-  const allPokemon = async () => {
+  const allPokemon = async (next = "") => {
 
-    const url = "https://pokeapi.co/api/v2/pokemon/"
+    const url = next !== "" ? next : "https://pokeapi.co/api/v2/pokemon/"
 
     try {
       const response = await get(url)
-
+      
       const details = response?.data?.results?.map((element, id) => {
         return pokemonDetail(element.url)
       })
-
-      const pokemons = await Promise.all(details)
+      
+      const pokemons = await Promise?.all(details)
+      const newData = pokemon.all.concat(pokemons)
 
       dispatch(setPokemon({
         ...pokemon,
+        all: newData,
+        pagination: response,
+        count: response.data.count,
         state: "success",
-        all: pokemons
+        next: response.data.next,
       }))
 
     } catch (error) {
