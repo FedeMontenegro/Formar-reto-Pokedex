@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    model: [],
+    pagination: [],
+    all: [],
+    next: "",
+    count: 0,
     state: "idle",
     error: null,
-    all: [],
 }
 
 const pokemon = createSlice({

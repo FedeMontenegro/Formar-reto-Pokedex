@@ -35,6 +35,7 @@ const Browser = () => {
             <Search
                 onChange={e => setParam(e.target.value)}
                 onKeyDown={e =>  e.key === "Enter" && filterPokemon(param)}
+                placeholder="Filter Pokémon by name or abilities"
             />
         </Wrapper>
     )
