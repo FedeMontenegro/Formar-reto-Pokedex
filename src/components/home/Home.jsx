@@ -44,7 +44,7 @@ const Home = () => {
 
   const reset = () => {
     localStorage.setItem("deleted", JSON.stringify([]))
-    allPokemon("", true)
+    window.location.href = "/"
   }
 
   useEffect(() => {
