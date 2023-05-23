@@ -3,8 +3,7 @@ import useCard from "../../hooks/useCard"
 
 import styled from "styled-components"
 
-import { getElements, getSecondaryElements } from "../../utils/constants.style.util"
-import { getElement, vector_elements } from "../../utils/constans.elements.util"
+import { getSecondaryElements } from "../../utils/constants.style.util"
 
 const Wrapper = styled.div`
   background-color: ${props => props.background};
@@ -13,6 +12,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 20px auto;
+  position: relative;
   width: 322px;
 
   @media(min-width:500px) {
@@ -85,20 +85,33 @@ const AbilitiesTitle = styled(Weight)`
     text-align: center;
   }
 `
-
+const Check = styled.input`
+  left: 10px;
+  position: absolute;
+  top: 10px;
+  z-index: 1;
+  @media(min-width: 500px) {
+  }
+`
 
 const Card = ({ detail }) => {
 
-  const { front } = useCard(detail)
+  const { front, isChecked, handleChecked } = useCard(detail)
 
   const [$background, setBackground] = useState(getSecondaryElements(detail?.data?.types[0].type.name))
 
   return (
     <Wrapper background={$background}>
 
-      <Info>
-        <NameContainer>
+      <Check 
+        type="checkbox"
+        checked={isChecked}
+        onChange={e => handleChecked(e, detail?.data?.name)}
+      />
 
+      <Info>
+
+        <NameContainer>
           <Weight>
             Weight: {detail?.data?.weight}
           </Weight>

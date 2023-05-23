@@ -10,14 +10,14 @@ const Wrapper = styled.section`
 const Store = () => {
 
   const pokemon = useSelector(state => state.pokemon)
-
+  
   return (
     <Wrapper>
       {
         pokemon.all.length > 0
         ?
         pokemon?.all?.map((element, id) => {
-          return <Card detail={element} key={id} />
+          return !JSON.parse(localStorage.getItem("deleted"))?.includes(element.data.name) && <Card detail={element} key={id} />
         })
         :""
       }
