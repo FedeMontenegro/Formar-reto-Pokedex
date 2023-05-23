@@ -6,7 +6,7 @@ import { setOpen } from "../../store/slices/alert.slice"
 import styled from "styled-components"
 import Logo from "../../assets/pokeapi.svg"
 
-import { Store, Browser } from "../"
+import { Store, SearchBar } from "../"
 import InfiniteScroll from 'react-infinite-scroll-component'
 import CircularProgress from '@mui/material/CircularProgress'
 import Button from '@mui/material/Button'
@@ -59,7 +59,7 @@ const Home = () => {
         alt="pokeapi"
         onClick={() => window.location.href = "/"}
       />
-      <Browser />
+      <SearchBar />
 
       <ButtonContainer>
         <Button

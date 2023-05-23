@@ -19,7 +19,7 @@ const Search = styled.input`
     width: 100%;
 `
 
-const Browser = () => {
+const SearchBar = () => {
 
     const [param, setParam] = useState("")
     const { filterPokemon } = useApi()
@@ -41,4 +41,4 @@ const Browser = () => {
     )
 }
 
-export default Browser
+export default SearchBar
