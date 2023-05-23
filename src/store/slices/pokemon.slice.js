@@ -7,6 +7,8 @@ const initialState = {
     count: 0,
     state: "idle",
     error: null,
+    checked: [],
+    deleted: [],
 }
 
 const pokemon = createSlice({
@@ -14,8 +16,18 @@ const pokemon = createSlice({
     initialState,
     reducers: {
         setPokemon: (state, action) => action.payload,
+        resetPokemon: (state) => {
+            state.pagination = []
+            state.all = []
+            state.next = ""
+            state.count = 0
+            state.state = "idle"
+            state.error = null
+            state.checked = []
+            state.deleted = []
+        }
     }
 })
 
-export const { setPokemon } = pokemon.actions
+export const { setPokemon, resetPokemon } = pokemon.actions
 export default pokemon.reducer

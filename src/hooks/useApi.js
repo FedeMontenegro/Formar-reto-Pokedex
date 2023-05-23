@@ -1,6 +1,5 @@
-import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { setPokemon } from "../store/slices/pokemon.slice"
+import { setPokemon, resetPokemon } from "../store/slices/pokemon.slice"
 import { get } from "../utils/api.utils"
 
 const useApi = () => {
@@ -8,23 +7,29 @@ const useApi = () => {
   const dispatch = useDispatch()
   const pokemon = useSelector(state => state.pokemon)
 
-  const allPokemon = async (next = "") => {
-
+  const allPokemon = async (next = "", reset) => {
     const url = next !== "" ? next : "https://pokeapi.co/api/v2/pokemon/"
+    
+    if(reset){
+      dispatch(resetPokemon())
+    }
 
     try {
       const response = await get(url)
-      
+
       const details = response?.data?.results?.map((element, id) => {
         return pokemonDetail(element.url)
       })
-      
+
       const pokemons = await Promise?.all(details)
-      const newData = pokemon.all.concat(pokemons)
+      
+      let newData = pokemons.map(element => {
+        return pokemon.all.includes(element) ? "" : element
+      })
 
       dispatch(setPokemon({
         ...pokemon,
-        all: newData,
+        all: pokemon.all.concat(newData),
         pagination: response,
         count: response.data.count,
         state: "success",
@@ -52,7 +57,6 @@ const useApi = () => {
     const url = `https://pokeapi.co/api/v2/pokemon/${param}`
 
     try {
-
       if (param !== "") {
         const response = await get(url)
 
@@ -83,12 +87,13 @@ const useApi = () => {
       const pokemonList = await get(`https://pokeapi.co/api/v2/ability/${param}`)
 
       const filterPokemon = pokemonList.data.pokemon.map(element => pokemonDetail(element.pokemon.url))
-      
+
       const result = await Promise.all(filterPokemon)
-      
+
       dispatch(setPokemon({
         ...pokemon,
-        all: result
+        all: result,
+        next: "",
       }))
 
     } catch (error) {
